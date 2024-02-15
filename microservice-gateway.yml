@@ -1,0 +1,33 @@
+server:
+  port: 8080
+
+gateway:
+  internal:
+    uri: http://localhost
+
+spring:
+  main:
+    web-application-type: reactive
+  cloud:
+    gateway:
+      routes:
+      - id: microservice-users
+        uri: ${gateway.internal.uri}:8090
+        predicates:
+          - Path=/api/users/**
+
+      - id: microservice-authorization-server
+        uri: ${gateway.internal.uri}:8100
+        predicates:
+          - Path=/api/authorization/**
+          
+      - id: microservice-authentication
+        uri: ${gateway.internal.uri}:8200
+        predicates:
+          - Path=/api/authentication/**
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
