@@ -1,25 +1,26 @@
 server:
   port: 8200
 
-security:
-  oauth2:
-    resourceserver:
-      jwt:
-        issuer-uri: http://localhost:8100
-    client:
-      registration:
-        app-authorization-server:
-          client-id: app-authorization-server
-          client-name: Spring
-          client-secret: secret
-          authorization-grant-type: authorization_code
-          redirect-uri: http://localhost:8200/login/oauth2/code/{registrationId}
-          provider: spring
-          scope: 
-            - openid
-      provider:
-        spring:
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
           issuer-uri: http://localhost:8100
+      client:
+        registration:
+          app-authorization-server:
+            client-id: app-authorization-server
+            client-name: Spring
+            client-secret: secret
+            authorization-grant-type: authorization_code
+            redirect-uri: http://localhost:8200/login/oauth2/code/{registrationId}
+            provider: spring
+            scope: 
+              - openid
+        provider:
+          spring:
+            issuer-uri: http://localhost:8100
 
 management:
   endpoints:
